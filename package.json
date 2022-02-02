@@ -1,0 +1,47 @@
+{
+  "name": "khanon-web",
+  "version": "1.0.11",
+  "description": "A view to my personal and professional projects",
+  "author": "Lorenzo Portillo",
+  "license": "",
+  "main": "index.html",
+  "scripts": {
+    "webpack-bundle-analyze": "webpack --profile --json > bundle-stats.json && webpack-bundle-analyzer bundle-stats.json",
+    "build": "npm run clean && node copy-assets.js && rimraf dist/index.html && webpack --config webpack.prod.js",
+    "build:deploy": "npm run build && npm run deploy",
+    "deploy": "..\\deploy-ionos.bat",
+    "deploy:under-construction": "..\\deploy-ionos-under-construction.bat",
+    "clean": "rimraf dist",
+    "check-circular-refs": "dpdm ./src/app.ts",
+    "start": "webpack serve --port 8080 --config webpack.dev.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publish:patch": "npm version patch --no-git-tag-version -f && npm run publish",
+    "publish:minor": "npm version minor --no-git-tag-version -f && npm run publish",
+    "publish:major": "npm version major --no-git-tag-version -f && npm run publish",
+    "publish:git": "git add . && git commit -m \"[Published %npm_package_version%]\" && git push",
+    "publish": "node version.js && npm run build && npm run publish:git && npm run deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Khanon/khanon-web.git"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "html-webpack-plugin": "^5.3.1",
+    "npm-quick-run": "^1.18.0",
+    "recursive-copy": "^2.0.13",
+    "rimraf": "^3.0.2",
+    "string-replace-loader": "^3.0.3",
+    "ts-loader": "^9.1.2",
+    "typescript": "^4.2.4",
+    "webpack": "^5.36.2",
+    "webpack-bundle-analyzer": "^4.4.2",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "@babylonjs/core": "^4.2.0",
+    "@babylonjs/inspector": "^4.2.0",
+    "rxjs": "^7.1.0"
+  }
+}
