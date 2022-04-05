@@ -2,7 +2,7 @@
  * Needed to keep files timestamps and avoid undesired uploads to server
  */
 
-var copy = require('recursive-copy');
+const copy = require('recursive-copy');
 
 copy('./public', './dist', function (error, results) {
     if (error) {

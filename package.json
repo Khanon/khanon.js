@@ -1,16 +1,19 @@
 {
-  "name": "khanon-web",
-  "version": "1.0.11",
-  "description": "A view to my personal and professional projects",
-  "author": "Lorenzo Portillo",
+  "name": "khanonjs",
+  "version": "0.0.1",
+  "description": "A typescript game engine extending Babylon.js",
+  "author": {
+    "name": "Lorenzo Portillo"
+  },
   "license": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Khanon/khanon.js.git"
+  },
   "main": "index.html",
   "scripts": {
     "webpack-bundle-analyze": "webpack --profile --json > bundle-stats.json && webpack-bundle-analyzer bundle-stats.json",
-    "build": "npm run clean && node copy-assets.js && rimraf dist/index.html && webpack --config webpack.prod.js",
-    "build:deploy": "npm run build && npm run deploy",
-    "deploy": "..\\deploy-ionos.bat",
-    "deploy:under-construction": "..\\deploy-ionos-under-construction.bat",
+    "build": "npm run clean && tsc",
     "clean": "rimraf dist",
     "check-circular-refs": "dpdm ./src/app.ts",
     "start": "webpack serve --port 8080 --config webpack.dev.js",
@@ -21,27 +24,36 @@
     "publish:git": "git add . && git commit -m \"[Published %npm_package_version%]\" && git push",
     "publish": "node version.js && npm run build && npm run publish:git && npm run deploy"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Khanon/khanon-web.git"
-  },
   "devDependencies": {
+    "@babylonjs/core": "^5.0.2",
+    "@babylonjs/gui": "^5.0.2",
+    "@babylonjs/inspector": "^5.0.2",
+    "@types/node": "^17.0.23",
+    "@typescript-eslint/eslint-plugin": "^5.18.0",
+    "@typescript-eslint/parser": "^5.18.0",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "eslint": "^8.12.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.0",
     "html-webpack-plugin": "^5.3.1",
-    "npm-quick-run": "^1.18.0",
     "recursive-copy": "^2.0.13",
     "rimraf": "^3.0.2",
     "string-replace-loader": "^3.0.3",
     "ts-loader": "^9.1.2",
-    "typescript": "^4.2.4",
+    "typescript": "^4.6.3",
     "webpack": "^5.36.2",
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.7.0",
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "@babylonjs/core": "^4.2.0",
-    "@babylonjs/inspector": "^4.2.0",
     "rxjs": "^7.1.0"
+  },
+  "peerDependencies": {
+    "@babylonjs/core": "^5.0.2",
+    "@babylonjs/gui": "^5.0.2",
+    "@babylonjs/inspector": "^5.0.2"
   }
 }

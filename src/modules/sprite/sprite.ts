@@ -9,11 +9,11 @@ import { SpriteAnimation } from './sprite-animation';
 import { WorkerTimer } from '../../workers/worker-timer';
 
 export class Sprite extends DisplayObject {
-    babylonjs: BabylonJsSprite;
+    declare babylonjs: BabylonJsSprite;
     private spriteTexture: SpriteTexture;
 
     private scale: number = 1;
-    /*private*/ keyFramesTimeouts: number[] = []; // 8a8f descomentar
+    private keyFramesTimeouts: number[] = [];
     private endAnimationTimer: number;
 
     constructor(readonly name: string = '', readonly properties: SpriteProperties = {}) {

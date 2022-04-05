@@ -5,7 +5,7 @@ import { DisplayObject } from '../../models/display-object';
 import { MeshAnimation } from './mesh-animation';
 
 export class Mesh extends DisplayObject {
-    readonly babylonjs: BabylonJsMesh;
+    declare babylonjs: BabylonJsMesh;
 
     private scale: number = 1;
 

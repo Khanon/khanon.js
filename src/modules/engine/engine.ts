@@ -1,6 +1,6 @@
 import { Engine as BabylonJsEngine } from '@babylonjs/core/Engines/engine';
 
-import * as Misc from '../../../khanon3d/misc';
+import * as Misc from '../../misc';
 import { Scene } from '../scene/scene';
 import { EngineProperties } from './engine-properties';
 

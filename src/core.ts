@@ -9,7 +9,7 @@ import { DimensionsWH } from './models/dimensions-wh';
 import { CoreProperties } from './models/core-properties';
 import { WorkerTimer } from './workers/worker-timer';
 import { CoreGlobals } from './models/core-globals';
-import * as Misc from '../khanon3d/misc';
+import * as Misc from './misc';
 
 export class Core {
     private canvas: HTMLCanvasElement;

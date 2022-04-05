@@ -3,7 +3,7 @@ import { Scene as BabylonJsScene } from '@babylonjs/core/scene';
 import { Particle } from './particle';
 import { DisplayObject } from '../../models/display-object';
 import { AssetsManager } from '../assets-manager/assets-manager';
-import * as Misc from '../../../khanon3d/misc';
+import * as Misc from '../../misc';
 
 export class ParticlesFactory {
     private readonly particles: Misc.KeyValue<Particle, void> = new Misc.KeyValue<Particle, void>();

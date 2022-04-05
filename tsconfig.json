@@ -1,20 +1,31 @@
 {
-    "compilerOptions": {
-      "strict": true,
-      "strictPropertyInitialization": false,
-      "strictNullChecks": false,
-      "experimentalDecorators": true,
-      "target": "es6",
-      "module": "commonjs",
-      "noResolve": false,
-      "noImplicitAny": false,
-      "noImplicitReturns": false,
-      "sourceMap": true,
-      "preserveConstEnums":true,
-      "lib": [
-          "dom",
-          "es6"
-      ],
-      "rootDir": "src"
-    }
-  }
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "module": "esNext",
+    "target": "esNext",
+    "lib": [
+      "dom",
+      "es6"
+    ],
+    "rootDir": "src",
+    "outDir": "dist",
+    "importHelpers": true,
+    "declaration": false,
+    "noResolve": false,
+    "noImplicitThis": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": false,
+    "strictFunctionTypes": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "strictNullChecks": false,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "preserveConstEnums":true
+  },
+  "exclude": [
+      "dist",
+      "docs"
+  ]
+}
