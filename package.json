@@ -15,7 +15,7 @@
     "webpack-bundle-analyze": "webpack --profile --json > bundle-stats.json && webpack-bundle-analyzer bundle-stats.json",
     "build": "npm run clean && tsc",
     "clean": "rimraf dist",
-    "check-circular-refs": "dpdm ./src/app.ts",
+    "check-circular-refs": "dpdm ./src/index.ts",
     "start": "webpack serve --port 8080 --config webpack.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "publish:patch": "npm version patch --no-git-tag-version -f && npm run publish",
