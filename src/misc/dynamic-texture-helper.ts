@@ -1,5 +1,5 @@
-import { Scene as BabylonJsScene } from '@babylonjs/core/scene';
 import { DynamicTexture } from '@babylonjs/core/Materials/Textures/dynamicTexture';
+import { Scene as BabylonJsScene } from '@babylonjs/core/scene';
 
 import { TextBlockProperties } from '../models/textblock-properties';
 

@@ -49,7 +49,7 @@ abstract class KeyValueBase<K, V> {
 export class KeyValue<K, V> extends KeyValueBase<K, V> {
     add(key: K, value: V): V {
         if (this.getByKey(key) !== undefined) {
-            Logger.warn("Can't repeat key value -", key);
+            Logger.warn('Can\'t repeat key value -', key);
             return;
         }
         this.pairs.push({ key, value });

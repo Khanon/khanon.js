@@ -1,20 +1,20 @@
 import { Subject } from 'rxjs';
 
-import { Scene as BabylonJsScene } from '@babylonjs/core/scene';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Scene as BabylonJsScene } from '@babylonjs/core/scene';
 
-import { StateMachine } from '../state-machine/state-machine';
-import { DisplayObject } from '../../models/display-object';
-import { ActorProperties } from './actor-properties';
-import { ActionsManager } from '../actions/actions-manager';
-import { SpriteAnimation } from '../sprite/sprite-animation';
-import { MeshAnimation } from '../mesh/mesh-animation';
 import * as Misc from '../../misc';
-import { ActorSimplePhysics } from '../physics/simple-physics/actor-simple-physics';
-import { Logger } from '../logger/logger';
-import { ParticlesFactory } from '../particle/particles-factory';
+import { DisplayObject } from '../../models/display-object';
 import { ObservablesContainer } from '../../models/observables-container';
+import { ActionsManager } from '../actions/actions-manager';
 import { AssetsManager } from '../assets-manager/assets-manager';
+import { Logger } from '../logger/logger';
+import { MeshAnimation } from '../mesh/mesh-animation';
+import { ParticlesFactory } from '../particle/particles-factory';
+import { ActorSimplePhysics } from '../physics/simple-physics/actor-simple-physics';
+import { SpriteAnimation } from '../sprite/sprite-animation';
+import { StateMachine } from '../state-machine/state-machine';
+import { ActorProperties } from './actor-properties';
 
 export abstract class Actor {
     private displayObject: DisplayObject;
@@ -22,7 +22,7 @@ export abstract class Actor {
     private readonly keyFramesSubjects: Misc.KeyValue<number, Subject<void>> = new Misc.KeyValue<number, Subject<void>>();
 
     readonly state: StateMachine = new StateMachine();
-    readonly actions: ActionsManager<Actor> = new ActionsManager<Actor>();
+    readonly actions: ActionsManager<any> = new ActionsManager<Actor>();
     readonly physics: ActorSimplePhysics;
     particles: ParticlesFactory;
     protected sceneObservables: ObservablesContainer;
@@ -153,7 +153,7 @@ export abstract class Actor {
     getAnimation<T = SpriteAnimation | MeshAnimation>(id: number): T {
         const animation = this.animations.get<T>(id);
         if (!animation) {
-            Logger.error(`Animation not found, ID:`, id);
+            Logger.error('Animation not found, ID:', id);
         }
         return animation;
     }

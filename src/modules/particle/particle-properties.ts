@@ -1,6 +1,5 @@
-import { ParticleEndCriteria } from './particle-end-criteria';
 import { Motion } from '../motion/motion';
-import { MotionProperties } from '../motion/motion-properties';
+import { ParticleEndCriteria } from './particle-end-criteria';
 
 export interface ParticleProperties {
     x?: number;

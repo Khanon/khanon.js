@@ -38,7 +38,7 @@ export class Engine {
         this.babylonjs.runRenderLoop(() => {
             this.renderScenes.getValues().forEach((scene) => scene.babylonjs.render());
             if (this.properties?.fpsContainer) {
-                let divFps = document.getElementById(this.properties.fpsContainer);
+                const divFps = document.getElementById(this.properties.fpsContainer);
                 divFps.innerHTML = this.babylonjs.getFps().toFixed() + ' fps';
             }
         });

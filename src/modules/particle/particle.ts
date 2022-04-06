@@ -1,11 +1,11 @@
 import { Scene as BabylonJsScene } from '@babylonjs/core/scene';
 
-import { ParticleProperties } from './particle-properties';
-import { LoopUpdateable } from '../../models/loop-updateable';
-import { MeshesManager } from '../mesh/meshes-manager';
 import { DisplayObject } from '../../models/display-object';
+import { LoopUpdateable } from '../../models/loop-updateable';
 import { AssetsManager } from '../assets-manager/assets-manager';
+import { MeshesManager } from '../mesh/meshes-manager';
 import { ParticleEndCriteria } from '../particle/particle-end-criteria';
+import { ParticleProperties } from './particle-properties';
 
 export abstract class Particle extends LoopUpdateable {
     abstract id: string;

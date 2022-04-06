@@ -1,8 +1,8 @@
-import { LoopUpdateable } from '../../models/loop-updateable';
-import { MotionProperties } from './motion-properties';
 import { DisplayObject } from '../../models/display-object';
-import { MotionEndCriteria } from './motion-end-criteria';
+import { LoopUpdateable } from '../../models/loop-updateable';
 import { WorkerTimer } from '../../workers/worker-timer';
+import { MotionEndCriteria } from './motion-end-criteria';
+import { MotionProperties } from './motion-properties';
 
 export abstract class Motion extends LoopUpdateable {
     displayObject: DisplayObject;

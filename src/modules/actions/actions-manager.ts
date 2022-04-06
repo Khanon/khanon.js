@@ -1,6 +1,6 @@
 import * as Misc from '../../misc';
-import { Action } from './action';
 import { Logger } from '../logger/logger';
+import { Action } from './action';
 
 /**
  * Actions to be applied to actors or scenes.
@@ -21,7 +21,6 @@ export class ActionsManager<T> {
             action.play(onDone);
         } else {
             Logger.warn('Action already running -', actionId);
-            return;
         }
     }
 

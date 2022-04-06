@@ -1,6 +1,6 @@
-import { Sprite } from './sprite';
-import { AssetsManager } from '../assets-manager/assets-manager';
 import * as Misc from '../../misc';
+import { AssetsManager } from '../assets-manager/assets-manager';
+import { Sprite } from './sprite';
 
 export class SpritesManager {
     private readonly sprites: Misc.KeyValue<Sprite, void> = new Misc.KeyValue<Sprite, void>();

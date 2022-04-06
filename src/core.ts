@@ -2,14 +2,16 @@ import '@babylonjs/core/Loading/loadingScreen';
 import '@babylonjs/core/Loading/Plugins/babylonFileLoader';
 import '@babylonjs/core/Materials/PBR/pbrMaterial';
 
+import * as Misc from './misc';
+import { CoreGlobals } from './models/core-globals';
+import { CoreProperties } from './models/core-properties';
+import { DimensionsWH } from './models/dimensions-wh';
 import { Engine } from './modules/engine/engine';
 import { Logger } from './modules/logger/logger';
 import { Scene } from './modules/scene/scene';
-import { DimensionsWH } from './models/dimensions-wh';
-import { CoreProperties } from './models/core-properties';
 import { WorkerTimer } from './workers/worker-timer';
-import { CoreGlobals } from './models/core-globals';
-import * as Misc from './misc';
+
+type SceneFunctionArg = (scene: Scene) => void;
 
 export class Core {
     private canvas: HTMLCanvasElement;
@@ -23,7 +25,7 @@ export class Core {
     private engine: Engine;
 
     // Scene
-    private loadSceneQueue: Misc.KeyValue<Scene, (scene: Scene) => void> = new Misc.KeyValue<Scene, (scene: Scene) => void>();
+    private loadSceneQueue: Misc.KeyValue<Scene, (scene: Scene) => void> = new Misc.KeyValue<Scene, SceneFunctionArg>();
 
     constructor(private readonly properties: CoreProperties) {
         this.loopUpdateDelay = this.properties.delayUpdate ?? 0;
@@ -142,7 +144,7 @@ export class Core {
                 const interval = currentMs - this.loopUpdateLastMs;
                 if (interval > this.loopUpdateDelay) {
                     this.loopUpdateLastMs = currentMs;
-                    let delta = interval / this.loopUpdateFPS;
+                    const delta = interval / this.loopUpdateFPS;
                     CoreGlobals.loopUpdate$.next(delta);
                     CoreGlobals.physicsUpdate$.next(delta);
                 }

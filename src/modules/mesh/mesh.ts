@@ -7,7 +7,7 @@ import { MeshAnimation } from './mesh-animation';
 export class Mesh extends DisplayObject {
     declare babylonjs: BabylonJsMesh;
 
-    private scale: number = 1;
+    private scale = 1;
 
     constructor(readonly name, babylonJsMesh: BabylonJsMesh) {
         super(name);
@@ -17,6 +17,7 @@ export class Mesh extends DisplayObject {
     get visible(): boolean {
         return this.babylonjs.isVisible;
     }
+
     set visible(visible: boolean) {
         this.babylonjs.isVisible = visible;
     }

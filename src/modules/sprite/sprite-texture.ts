@@ -1,6 +1,6 @@
-import { SpriteManager } from '@babylonjs/core/Sprites/spriteManager';
-import { Scene as BabylonJsScene } from '@babylonjs/core/scene';
 import { DynamicTexture } from '@babylonjs/core';
+import { Scene as BabylonJsScene } from '@babylonjs/core/scene';
+import { SpriteManager } from '@babylonjs/core/Sprites/spriteManager';
 
 /**
  * Class based on BabylonJs SpriteManager

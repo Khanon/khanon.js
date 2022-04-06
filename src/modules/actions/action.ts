@@ -1,5 +1,3 @@
-import { Observable } from 'rxjs';
-
 import { LoopUpdateable } from '../../models/loop-updateable';
 
 export abstract class Action<T, P> extends LoopUpdateable {

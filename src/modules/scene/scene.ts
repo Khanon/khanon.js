@@ -1,31 +1,31 @@
-import { Color4 } from '@babylonjs/core/Maths/math.color';
 import { Engine as BabylonJsEngine } from '@babylonjs/core/Engines/engine';
+import { Color4 } from '@babylonjs/core/Maths/math.color';
 import { Scene as BabylonJsScene } from '@babylonjs/core/scene';
+
+import { CoreGlobals } from '../../models/core-globals';
+import { ObservablesContainer } from '../../models/observables-container';
+import { Subscriber } from '../../models/subscriber';
+import { ActionsManager } from '../actions/actions-manager';
+import { ActorsManager } from '../actor/actors-manager';
+import { AssetsManager } from '../assets-manager/assets-manager';
+import { Logger } from '../logger/logger';
+import { MeshesManager } from '../mesh/meshes-manager';
+import { ParticlesFactory } from '../particle/particles-factory';
+import { SpritesManager } from '../sprite/sprites-manager';
+import { StateMachine } from '../state-machine/state-machine';
+import { SceneProperties } from './scene-properties';
 
 // Inspector (only dev mode), these comments will be replaced from webpack.dev.js
 /* babylonjs-debugLayer */
 /* babylonjs-inspector */
-
-import { ActionsManager } from '../actions/actions-manager';
-import { SceneProperties } from './scene-properties';
-import { ParticlesFactory } from '../particle/particles-factory';
-import { Subscriber } from '../../models/subscriber';
-import { SpritesManager } from '../sprite/sprites-manager';
-import { MeshesManager } from '../mesh/meshes-manager';
-import { ActorsManager } from '../actor/actors-manager';
-import { ObservablesContainer } from '../../models/observables-container';
-import { AssetsManager } from '../assets-manager/assets-manager';
-import { Logger } from '../logger/logger';
-import { CoreGlobals } from '../../models/core-globals';
-import { StateMachine } from '../state-machine/state-machine';
 
 export abstract class Scene extends Subscriber {
     abstract id: string;
 
     babylonjs: BabylonJsScene;
 
-    isLoaded: boolean = false;
-    isPlaying: boolean = false;
+    isLoaded = false;
+    isPlaying = false;
 
     // Engine properties
     protected babylonJsEngine: BabylonJsEngine;
@@ -122,7 +122,7 @@ export abstract class Scene extends Subscriber {
                         this.play();
                     }
                 });
-            },
+            }
         });
 
         // Babylonjs inspector (only DEV mode). Babylonjs inspector imports are removed on webpack build

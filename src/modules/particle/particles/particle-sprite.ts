@@ -1,9 +1,9 @@
-import { Particle } from '../particle';
-import { ParticleProperties } from '../particle-properties';
 import { Sprite } from '../../sprite/sprite';
 import { SpriteAnimation } from '../../sprite/sprite-animation';
-import { ParticleEndCriteria } from '../particle-end-criteria';
 import { SpriteTexture } from '../../sprite/sprite-texture';
+import { Particle } from '../particle';
+import { ParticleEndCriteria } from '../particle-end-criteria';
+import { ParticleProperties } from '../particle-properties';
 
 export interface ParticleSpriteProperties extends ParticleProperties {
     spriteTexture: SpriteTexture;

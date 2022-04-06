@@ -1,11 +1,11 @@
-import { Vector3, Matrix } from '@babylonjs/core/Maths/math.vector';
+import { Matrix, Vector3 } from '@babylonjs/core/Maths/math.vector';
 
 import * as Misc from '../../../misc';
 import { DisplayObject } from '../../../models/display-object';
 import { PhysicsUpdateable } from '../../../models/physics-updatable';
 
 export class ActorSimplePhysics extends PhysicsUpdateable {
-    static id: string = 'ActorSimplePhysics';
+    static id = 'ActorSimplePhysics';
     id: string = ActorSimplePhysics.id;
 
     private displayObject: DisplayObject;
@@ -15,7 +15,7 @@ export class ActorSimplePhysics extends PhysicsUpdateable {
     private translationMatrix: Matrix = new Matrix();
     private rotationVector: Vector3 = new Vector3();
 
-    onFloor: boolean = false;
+    onFloor = false;
 
     start(displayObject: DisplayObject): void {
         this.displayObject = displayObject;

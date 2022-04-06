@@ -1,7 +1,7 @@
 import { Scene as BabylonJsScene } from '@babylonjs/core/scene';
 
-import { Actor } from './actor';
 import { Mesh } from '../mesh/mesh';
+import { Actor } from './actor';
 import { ActorProperties } from './actor-properties';
 
 export abstract class Actor3D extends Actor {
@@ -21,5 +21,5 @@ export abstract class Actor3D extends Actor {
         this._mesh = displayObject;
     }
 
-    setAnimation(id: number, loop: boolean = true, completed?: () => void): void {}
+    setAnimation(id: number, loop = true, completed?: () => void): void {}
 }

@@ -1,15 +1,15 @@
 import { from, Observable, of, throwError } from 'rxjs';
 import { fromFetch } from 'rxjs/fetch';
-import { switchMap, catchError } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 
-import { Scene as BabylonJsScene } from '@babylonjs/core/scene';
 // import { AssetsManager as BabylonJsAssetsManager } from '@babylonjs/core/Misc/assetsManager';    // TODO?
 import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
+import { Scene as BabylonJsScene } from '@babylonjs/core/scene';
 
-import { TextureProperties } from '../../models/texture-properties';
 import * as Misc from '../../misc';
-import { SpriteTexture } from '../sprite/sprite-texture';
+import { TextureProperties } from '../../models/texture-properties';
 import { Logger } from '../logger/logger';
+import { SpriteTexture } from '../sprite/sprite-texture';
 
 interface AssetsJsonData {
     /**
@@ -59,7 +59,7 @@ export class AssetsManager {
                                         id: textureData.id,
                                         url: textureData.url,
                                         width: textureData.cellWidth,
-                                        height: textureData.cellHeight,
+                                        height: textureData.cellHeight
                                     });
                                 });
 
@@ -121,7 +121,7 @@ export class AssetsManager {
      * @returns
      */
     getSpriteTexture(textureProperties: TextureProperties): SpriteTexture {
-        let spriteTexture: SpriteTexture = this.spriteTextures.get(textureProperties.id);
+        const spriteTexture: SpriteTexture = this.spriteTextures.get(textureProperties.id);
         if (spriteTexture) {
             return spriteTexture;
         } else if (textureProperties.url) {

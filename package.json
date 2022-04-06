@@ -18,6 +18,7 @@
     "check-circular-refs": "dpdm ./src/index.ts",
     "start": "webpack serve --port 8080 --config webpack.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ./src/**/*.*",
     "publish:patch": "npm version patch --no-git-tag-version -f && npm run publish",
     "publish:minor": "npm version minor --no-git-tag-version -f && npm run publish",
     "publish:major": "npm version major --no-git-tag-version -f && npm run publish",

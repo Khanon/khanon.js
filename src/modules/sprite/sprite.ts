@@ -2,17 +2,17 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { Sprite as BabylonJsSprite } from '@babylonjs/core/Sprites/sprite';
 
 import { DisplayObject } from '../../models/display-object';
-import { SpriteTexture } from './sprite-texture';
-import { SpriteProperties } from './sprite-properties';
+import { WorkerTimer } from '../../workers/worker-timer';
 import { Logger } from '../logger/logger';
 import { SpriteAnimation } from './sprite-animation';
-import { WorkerTimer } from '../../workers/worker-timer';
+import { SpriteProperties } from './sprite-properties';
+import { SpriteTexture } from './sprite-texture';
 
 export class Sprite extends DisplayObject {
     declare babylonjs: BabylonJsSprite;
     private spriteTexture: SpriteTexture;
 
-    private scale: number = 1;
+    private scale = 1;
     private keyFramesTimeouts: number[] = [];
     private endAnimationTimer: number;
 

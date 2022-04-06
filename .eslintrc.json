@@ -1,6 +1,7 @@
 {
     "extends": [
         "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
         "standard"
     ],
     "env": {
@@ -21,15 +22,16 @@
         "semi": ["error", "always"],
         "quotes": ["error", "single"],
         "object-curly-spacing": [2, "always"],
-        "no-unused-vars":  ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
-        "sort-imports": [
-            "error", {
-                "ignoreCase": false,
-                "ignoreDeclarationSort": false,
-                "ignoreMemberSort": false,
-                "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
-                "allowSeparatedGroups": false
-            }
-        ]
+        "no-unused-vars": "off",
+        "sort-imports": "off",
+        "no-case-declarations": 0,
+        "space-before-function-paren": "off",
+        "no-useless-constructor": "off",
+        "@typescript-eslint/no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": false }],
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/no-inferrable-types": "off"
     }
 }

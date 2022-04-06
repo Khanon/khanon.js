@@ -91,7 +91,7 @@ export class Maths {
             return complete();
         }
         const directorNormalized = director.map((value) => value / length);
-        let result = [];
+        const result = [];
         for (let i = 0; i < from.length; i++) {
             const resultValue = this.increaseValue(from[i], to[i], Math.abs(directorNormalized[i]) * speed);
             result.push(resultValue);
@@ -117,7 +117,7 @@ export class Maths {
             return complete();
         }
         const directorNormalized = director.map((value) => value / length);
-        let result = [];
+        const result = [];
         for (let i = 0; i < from.length; i++) {
             const resultValue = this.increaseValueWithInertia(from[i], to[i], Math.abs(directorNormalized[i]) * speed, acceleration);
             result.push(resultValue);
