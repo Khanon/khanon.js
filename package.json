@@ -1,5 +1,5 @@
 {
-  "name": "khanonjs",
+  "name": "@khanonjs/engine",
   "version": "0.0.1",
   "description": "A typescript game engine extending Babylon.js",
   "author": {
@@ -8,12 +8,14 @@
   "license": "",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Khanon/khanon.js.git"
+    "url": "https://github.com/Khanon/khanon.js.git"
   },
-  "main": "index.html",
+  "main": "index.js",
   "scripts": {
     "webpack-bundle-analyze": "webpack --profile --json > bundle-stats.json && webpack-bundle-analyzer bundle-stats.json",
-    "build": "npm run clean && tsc",
+    "build": "npm run unlink && npm run clean && tsc",
+    "link": "cpy package.json ./src && cd ./src && npm link",
+    "unlink": "cd ./src && rimraf node_modules && rimraf package.json && rimraf package-lock.json && npm unlink",
     "clean": "rimraf dist",
     "check-circular-refs": "dpdm ./src/index.ts",
     "start": "webpack serve --port 8080 --config webpack.dev.js",
@@ -33,6 +35,7 @@
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "cpy-cli": "^4.1.0",
     "eslint": "^8.12.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.4",
@@ -41,6 +44,7 @@
     "html-webpack-plugin": "^5.3.1",
     "recursive-copy": "^2.0.13",
     "rimraf": "^3.0.2",
+    "rxjs": "^7.1.0",
     "string-replace-loader": "^3.0.3",
     "ts-loader": "^9.1.2",
     "typescript": "^4.6.3",
@@ -49,12 +53,10 @@
     "webpack-cli": "^4.7.0",
     "webpack-dev-server": "^3.11.2"
   },
-  "dependencies": {
-    "rxjs": "^7.1.0"
-  },
   "peerDependencies": {
     "@babylonjs/core": "^5.0.2",
     "@babylonjs/gui": "^5.0.2",
-    "@babylonjs/inspector": "^5.0.2"
+    "@babylonjs/inspector": "^5.0.2",
+    "rxjs": "^7.1.0"
   }
 }

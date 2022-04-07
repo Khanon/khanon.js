@@ -65,6 +65,9 @@ export class Core {
                 this.loopUpdate();
 
                 // Log info on startup
+                // 8a8f mrar esto, las variables de entorno no van así en HTML,
+                // ver cómo hacer seteo de esta variable desde la app nodriza
+                // eliminar @types/node de packages
                 Logger.info('Environment mode:', process.env.NODE_ENV);
                 this.logCanvasSize();
 

@@ -4,9 +4,13 @@
 /docs
 
 # dependencies
-/node_modules
+node_modules/
 /.pnp
 .pnp.js
+
+# linked project files
+src/package.json
+src/package-lock.json
 
 # testing
 /coverage
