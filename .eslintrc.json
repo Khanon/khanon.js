@@ -22,6 +22,7 @@
         "semi": ["warn", "always"],
         "quotes": ["warn", "single"],
         "object-curly-spacing": ["warn", "always"],
+        "no-trailing-spaces": "warn",
         "no-multi-spaces": "warn",
         "no-unused-vars": "off",
         "sort-imports": "off",
