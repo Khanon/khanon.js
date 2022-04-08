@@ -1,15 +1,15 @@
 import { Scene as BabylonJsScene } from '@babylonjs/core/scene';
 
-import { Actor } from './actor';
-import { ObservablesContainer } from '../../models/observables-container';
-import { SpritesManager } from '../sprite/sprites-manager';
-import { MeshesManager } from '../mesh/meshes-manager';
-import { DisplayObject } from '../../models/display-object';
-import { Sprite } from '../sprite/sprite';
-import { Mesh } from '../mesh/mesh';
-import { Logger } from '../logger/logger';
-import { AssetsManager } from '../assets-manager/assets-manager';
 import * as Misc from '../../misc';
+import { DisplayObject } from '../../models/display-object';
+import { ObservablesContainer } from '../../models/observables-container';
+import { AssetsManager } from '../assets-manager/assets-manager';
+import { Logger } from '../logger/logger';
+import { Mesh } from '../mesh/mesh';
+import { MeshesManager } from '../mesh/meshes-manager';
+import { Sprite } from '../sprite/sprite';
+import { SpritesManager } from '../sprite/sprites-manager';
+import { Actor } from './actor';
 
 export class ActorsManager {
     private readonly _actors: Misc.KeyValue<Actor, void> = new Misc.KeyValue<Actor, void>();
