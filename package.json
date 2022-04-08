@@ -13,8 +13,8 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run unlink && npm run clean && tsc",
-    "link": "cpy package.json ./src && cd ./src && npm link",
-    "unlink": "cd ./src && rimraf node_modules && rimraf package.json && rimraf package-lock.json && npm unlink",
+    "link": "cpy package.json ./src && cd ./src && npm link --production",
+    "unlink": "cd ./src && rimraf package.json && rimraf package-lock.json && npm unlink",
     "clean": "rimraf dist",
     "webpack-bundle-analyze": "webpack --profile --json > bundle-stats.json && webpack-bundle-analyzer bundle-stats.json",
     "check-circular-refs": "dpdm ./src/index.ts",
