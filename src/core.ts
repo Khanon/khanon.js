@@ -16,9 +16,6 @@ type SceneFunctionArg = (scene: Scene) => void;
 export class Core {
     private static properties: CoreProperties;
 
-    // Canvas
-    private static canvas: HTMLCanvasElement;
-
     // Loop update
     private static loopUpdateLastMs: number;
     private static loopUpdateFPS: number;
@@ -38,29 +35,7 @@ export class Core {
         if (Core.properties.onAppError) {
             CoreGlobals.onError$.subscribe({ next: (errorMsg: string) => Core.properties.onAppError(errorMsg) });
         }
-    }
-
-    /**
-     * Creates and append canvas to a div element.
-     * One canvas per application.
-     */
-    static createCanvasOnDivElement(htmlElement: HTMLElement): HTMLCanvasElement {
-        if (Core.canvas) {
-            Logger.error('Not allowed more than one canvas.');
-            return;
-        }
-        Core.canvas = document.createElement('canvas');
-        Core.canvas.id = 'canvas';
-        htmlElement.appendChild(Core.canvas);
-        CoreGlobals.canvasDimensions = Core.getCanvasDimensions();
-        return Core.canvas;
-    }
-
-    /**
-     * Get canvas
-     */
-    static getCanvas(): HTMLCanvasElement {
-        return Core.canvas;
+        this.createCanvasOnDivElement(Core.properties.canvasParentHTMLElement);
     }
 
     /**
@@ -70,7 +45,7 @@ export class Core {
         // Avoid babylonJs canvas scale error
         WorkerTimer.setTimeout(
             () => {
-                Core.engine = new Engine(Core.canvas, { fpsContainer: Core.properties.fpsContainer });
+                Core.engine = new Engine(CoreGlobals.canvas, { fpsContainer: Core.properties.fpsContainer });
 
                 // Start loop update
                 Core.loopUpdate();
@@ -98,22 +73,6 @@ export class Core {
     }
 
     /**
-     * Log canvas size { width, height }
-     */
-    static logCanvasSize(): void {
-        const canvasDimensions = Core.getCanvasDimensions();
-        Logger.info('Canvas size:', canvasDimensions.width, canvasDimensions.height);
-    }
-
-    /**
-     * Canvas width
-     * @returns
-     */
-    static getCanvasDimensions(): DimensionsWH {
-        return { width: Math.floor(Core.canvas.getBoundingClientRect().width), height: Math.floor(Core.canvas.getBoundingClientRect().height) };
-    }
-
-    /**
      * Load scene
      */
     static loadScene(scene: Scene, onLoaded?: (scene: Scene) => void): Scene {
@@ -130,6 +89,38 @@ export class Core {
             );
         }
         return scene;
+    }
+
+    /**
+     * Creates and append canvas to a div element.
+     * One canvas per application.
+     */
+    private static createCanvasOnDivElement(htmlElement: HTMLElement): HTMLCanvasElement {
+        if (CoreGlobals.canvas) {
+            Logger.error('Not allowed more than one canvas.');
+            return;
+        }
+        CoreGlobals.canvas = document.createElement('canvas');
+        CoreGlobals.canvas.id = 'canvas';
+        htmlElement.appendChild(CoreGlobals.canvas);
+        CoreGlobals.canvasDimensions = Core.getCanvasDimensions();
+        return CoreGlobals.canvas;
+    }
+
+    /**
+     * Log canvas size { width, height }
+     */
+    private static logCanvasSize(): void {
+        const canvasDimensions = Core.getCanvasDimensions();
+        Logger.info('Canvas size:', canvasDimensions.width, canvasDimensions.height);
+    }
+
+    /**
+     * Canvas width
+     * @returns
+     */
+    private static getCanvasDimensions(): DimensionsWH {
+        return { width: Math.floor(CoreGlobals.canvas.getBoundingClientRect().width), height: Math.floor(CoreGlobals.canvas.getBoundingClientRect().height) };
     }
 
     /**

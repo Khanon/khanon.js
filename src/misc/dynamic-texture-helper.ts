@@ -15,14 +15,14 @@ export class DynamicTextureHelper {
         const font = `${properties.fontStyle} ${properties.fontSize}px ${properties.fontName}`;
 
         const checkSizeTx = new DynamicTexture('DynamicTexture', 64, babylonJsScene, false);
-        const ctx = checkSizeTx.getContext();
+        const canvasTmp = document.createElement('canvas');
+        const ctx = canvasTmp.getContext('2d');
         ctx.font = font;
         const metricsFirst = ctx.measureText(properties.textBlock[0]);
 
         let textWidth = 0;
-        // defaultMetrics.actualBoundingBoxAscent + defaultMetrics.actualBoundingBoxDescent 8a8f NECESITA EL CANVAS AQUI -> canvas.ctx.measureText
-        const lineHeight = metricsFirst.actualBoundingBoxLeft + metricsFirst.actualBoundingBoxRight;
-        const textHeiht = lineHeight * properties.textBlock.length;
+        const lineHeight = metricsFirst.actualBoundingBoxAscent + metricsFirst.actualBoundingBoxDescent;
+        const textHeight = lineHeight * properties.textBlock.length;
         checkSizeTx.dispose();
         properties.textBlock.forEach((text) => {
             if (ctx.measureText(text).width > textWidth) {
@@ -30,7 +30,7 @@ export class DynamicTextureHelper {
             }
         });
         const textureWidth = properties.textureSize?.width ?? textWidth;
-        const textureHeight = properties.textureSize?.height ?? textHeiht + properties.fontSize / 2;
+        const textureHeight = properties.textureSize?.height ?? textHeight + properties.fontSize / 2;
 
         const dynamicTexture = new DynamicTexture('DynamicTexture', { width: textureWidth, height: textureHeight }, babylonJsScene, false);
         const ctxTx = dynamicTexture.getContext();

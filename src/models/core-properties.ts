@@ -1,4 +1,6 @@
 export interface CoreProperties {
+    /** Canvas DIV container */
+    canvasParentHTMLElement?: HTMLElement;
     /** FPS container HTML element */
     fpsContainer?: string;
     /** Target FPS of the application */
