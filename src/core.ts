@@ -14,25 +14,29 @@ import { WorkerTimer } from './workers/worker-timer';
 type SceneFunctionArg = (scene: Scene) => void;
 
 export class Core {
-    private canvas: HTMLCanvasElement;
+    private static properties: CoreProperties;
+
+    // Canvas
+    private static canvas: HTMLCanvasElement;
 
     // Loop update
-    private loopUpdateLastMs: number;
-    private loopUpdateFPS: number;
-    private loopUpdateDelay: number;
+    private static loopUpdateLastMs: number;
+    private static loopUpdateFPS: number;
+    private static loopUpdateDelay: number;
 
     // Engine
-    private engine: Engine;
+    private static engine: Engine;
 
     // Scene
-    private loadSceneQueue: Misc.KeyValue<Scene, (scene: Scene) => void> = new Misc.KeyValue<Scene, SceneFunctionArg>();
+    private static loadSceneQueue: Misc.KeyValue<Scene, (scene: Scene) => void> = new Misc.KeyValue<Scene, SceneFunctionArg>();
 
-    constructor(private readonly properties: CoreProperties) {
-        this.loopUpdateDelay = this.properties.delayUpdate ?? 0;
-        this.loopUpdateFPS = 1000 / this.properties.fps;
-        CoreGlobals.isDevelopmentMode = !!this.properties.isDevelopmentMode;
-        if (this.properties.onAppError) {
-            CoreGlobals.onError$.subscribe({ next: (errorMsg: string) => this.properties.onAppError(errorMsg) });
+    static initialize(properties: CoreProperties) {
+        Core.properties = properties;
+        Core.loopUpdateDelay = Core.properties.delayUpdate ?? 0;
+        Core.loopUpdateFPS = 1000 / Core.properties.fps;
+        CoreGlobals.isDevelopmentMode = !!Core.properties.isDevelopmentMode;
+        if (Core.properties.onAppError) {
+            CoreGlobals.onError$.subscribe({ next: (errorMsg: string) => Core.properties.onAppError(errorMsg) });
         }
     }
 
@@ -40,41 +44,48 @@ export class Core {
      * Creates and append canvas to a div element.
      * One canvas per application.
      */
-    createCanvasOnDivElement(htmlElement: HTMLElement): HTMLCanvasElement {
-        if (this.canvas) {
+    static createCanvasOnDivElement(htmlElement: HTMLElement): HTMLCanvasElement {
+        if (Core.canvas) {
             Logger.error('Not allowed more than one canvas.');
             return;
         }
-        this.canvas = document.createElement('canvas');
-        this.canvas.id = 'canvas';
-        htmlElement.appendChild(this.canvas);
-        CoreGlobals.canvasDimensions = this.getCanvasDimensions();
-        return this.canvas;
+        Core.canvas = document.createElement('canvas');
+        Core.canvas.id = 'canvas';
+        htmlElement.appendChild(Core.canvas);
+        CoreGlobals.canvasDimensions = Core.getCanvasDimensions();
+        return Core.canvas;
+    }
+
+    /**
+     * Get canvas
+     */
+    static getCanvas(): HTMLCanvasElement {
+        return Core.canvas;
     }
 
     /**
      * Starts BabylonJs
      */
-    run(onReady: () => void): void {
+    static run(onReady: () => void): void {
         // Avoid babylonJs canvas scale error
         WorkerTimer.setTimeout(
             () => {
-                this.engine = new Engine(this.canvas, { fpsContainer: this.properties.fpsContainer });
+                Core.engine = new Engine(Core.canvas, { fpsContainer: Core.properties.fpsContainer });
 
                 // Start loop update
-                this.loopUpdate();
+                Core.loopUpdate();
 
                 // Log info on startup
                 // 8a8f mrar esto, las variables de entorno no van así en HTML,
                 // ver cómo hacer seteo de esta variable desde la app nodriza
                 // eliminar @types/node de packages
                 Logger.info('Environment mode:', process.env.NODE_ENV);
-                this.logCanvasSize();
+                Core.logCanvasSize();
 
                 // Manage resize
                 window.addEventListener('resize', () => {
-                    const canvasDimensions = this.getCanvasDimensions();
-                    this.engine.babylonjs.resize();
+                    const canvasDimensions = Core.getCanvasDimensions();
+                    Core.engine.babylonjs.resize();
                     CoreGlobals.canvasDimensions = canvasDimensions;
                     CoreGlobals.canvasResize$.next(canvasDimensions);
                 });
@@ -89,8 +100,8 @@ export class Core {
     /**
      * Log canvas size { width, height }
      */
-    logCanvasSize(): void {
-        const canvasDimensions = this.getCanvasDimensions();
+    static logCanvasSize(): void {
+        const canvasDimensions = Core.getCanvasDimensions();
         Logger.info('Canvas size:', canvasDimensions.width, canvasDimensions.height);
     }
 
@@ -98,21 +109,21 @@ export class Core {
      * Canvas width
      * @returns
      */
-    getCanvasDimensions(): DimensionsWH {
-        return { width: Math.floor(this.canvas.getBoundingClientRect().width), height: Math.floor(this.canvas.getBoundingClientRect().height) };
+    static getCanvasDimensions(): DimensionsWH {
+        return { width: Math.floor(Core.canvas.getBoundingClientRect().width), height: Math.floor(Core.canvas.getBoundingClientRect().height) };
     }
 
     /**
      * Load scene
      */
-    loadScene(scene: Scene, onLoaded?: (scene: Scene) => void): Scene {
-        this.engine.addScene(scene);
-        this.loadSceneQueue.add(scene, onLoaded);
-        if (this.loadSceneQueue.getKeys().length === 1) {
+    static loadScene(scene: Scene, onLoaded?: (scene: Scene) => void): Scene {
+        Core.engine.addScene(scene);
+        Core.loadSceneQueue.add(scene, onLoaded);
+        if (Core.loadSceneQueue.getKeys().length === 1) {
             WorkerTimer.setTimeout(
                 () =>
                     scene.load(() => {
-                        this.loadSceneQueueNext(scene, onLoaded);
+                        Core.loadSceneQueueNext(scene, onLoaded);
                     }),
                 1,
                 this
@@ -125,29 +136,29 @@ export class Core {
      * Proccess load scene queue.
      * Queue is needeed since BabylonJs mess up on loading more than one scene simultaneously.
      */
-    private loadSceneQueueNext(sceneLoaded: Scene, onLoaded?: (scene: Scene) => void): void {
-        this.loadSceneQueue.del(sceneLoaded);
+    private static loadSceneQueueNext(sceneLoaded: Scene, onLoaded?: (scene: Scene) => void): void {
+        Core.loadSceneQueue.del(sceneLoaded);
         if (onLoaded) {
             onLoaded(sceneLoaded);
         }
-        if (this.loadSceneQueue.getKeys().length > 0) {
-            const nextScene = this.loadSceneQueue.getPairs()[0];
-            WorkerTimer.setTimeout(() => nextScene.key.load(() => this.loadSceneQueueNext(nextScene.key, nextScene.value)), 1, this);
+        if (Core.loadSceneQueue.getKeys().length > 0) {
+            const nextScene = Core.loadSceneQueue.getPairs()[0];
+            WorkerTimer.setTimeout(() => nextScene.key.load(() => Core.loadSceneQueueNext(nextScene.key, nextScene.value)), 1, this);
         }
     }
 
     /**
      * Call loop update subscribers with a delta time parameter
      */
-    private loopUpdate(): void {
-        this.loopUpdateLastMs = performance.now();
+    private static loopUpdate(): void {
+        Core.loopUpdateLastMs = performance.now();
         WorkerTimer.setInterval(
             () => {
                 const currentMs = performance.now();
-                const interval = currentMs - this.loopUpdateLastMs;
-                if (interval > this.loopUpdateDelay) {
-                    this.loopUpdateLastMs = currentMs;
-                    const delta = interval / this.loopUpdateFPS;
+                const interval = currentMs - Core.loopUpdateLastMs;
+                if (interval > Core.loopUpdateDelay) {
+                    Core.loopUpdateLastMs = currentMs;
+                    const delta = interval / Core.loopUpdateFPS;
                     CoreGlobals.loopUpdate$.next(delta);
                     CoreGlobals.physicsUpdate$.next(delta);
                 }

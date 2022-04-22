@@ -11,14 +11,16 @@ export class DynamicTextureHelper {
      * @param properties
      * @returns
      */
-    static createFromTextBlock (babylonJsScene: BabylonJsScene, properties: TextBlockProperties): DynamicTexture {
+    static createFromTextBlock(babylonJsScene: BabylonJsScene, properties: TextBlockProperties): DynamicTexture {
         const font = `${properties.fontStyle} ${properties.fontSize}px ${properties.fontName}`;
 
         const checkSizeTx = new DynamicTexture('DynamicTexture', 64, babylonJsScene, false);
         const ctx = checkSizeTx.getContext();
         ctx.font = font;
         const metricsFirst = ctx.measureText(properties.textBlock[0]);
+
         let textWidth = 0;
+        // defaultMetrics.actualBoundingBoxAscent + defaultMetrics.actualBoundingBoxDescent 8a8f NECESITA EL CANVAS AQUI -> canvas.ctx.measureText
         const lineHeight = metricsFirst.actualBoundingBoxLeft + metricsFirst.actualBoundingBoxRight;
         const textHeiht = lineHeight * properties.textBlock.length;
         checkSizeTx.dispose();
