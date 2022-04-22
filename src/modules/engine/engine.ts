@@ -1,6 +1,7 @@
 import { Engine as BabylonJsEngine } from '@babylonjs/core/Engines/engine';
 
 import * as Misc from '../../misc';
+import { CoreGlobals } from '../../models/core-globals';
 import { Scene } from '../scene/scene';
 import { EngineProperties } from './engine-properties';
 
@@ -10,15 +11,14 @@ export class Engine {
     private readonly scenes: Misc.KeyValue<string, Scene> = new Misc.KeyValue<string, Scene>();
     private readonly renderScenes: Misc.KeyValue<string, Scene> = new Misc.KeyValue<string, Scene>();
 
-    constructor(private readonly canvas: HTMLCanvasElement, private readonly properties?: EngineProperties) {
-        this.babylonjs = new BabylonJsEngine(this.canvas, true);
+    constructor(private readonly properties?: EngineProperties) {
+        this.babylonjs = new BabylonJsEngine(CoreGlobals.canvas, true);
         this.renderLoop();
     }
 
     addScene(scene: Scene): void {
         scene.setEngineParams(
             this.babylonjs,
-            this.canvas,
             (id: string) => this.startRenderScene(id),
             (id: string) => this.stopRenderScene(id)
         );

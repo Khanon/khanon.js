@@ -29,7 +29,6 @@ export abstract class Scene extends Subscriber {
 
     // Engine properties
     protected babylonJsEngine: BabylonJsEngine;
-    protected canvas: HTMLCanvasElement;
     private renderStart: (id: string) => void;
     private renderStop: (id: string) => void;
 
@@ -68,9 +67,8 @@ export abstract class Scene extends Subscriber {
      */
     abstract onError(errorMsg: string): void;
 
-    setEngineParams(babylonJsEngine: BabylonJsEngine, canvas: HTMLCanvasElement, renderStart: (id: string) => void, renderEnd: (id: string) => void): void {
+    setEngineParams(babylonJsEngine: BabylonJsEngine, renderStart: (id: string) => void, renderEnd: (id: string) => void): void {
         this.babylonJsEngine = babylonJsEngine;
-        this.canvas = canvas;
         this.renderStart = renderStart;
         this.renderStop = renderEnd;
     }
@@ -137,7 +135,7 @@ export abstract class Scene extends Subscriber {
     play(): void {
         this.isPlaying = true;
         this.renderStart(this.id);
-        this.babylonjs.activeCamera.attachControl(this.canvas);
+        this.babylonjs.activeCamera.attachControl(CoreGlobals.canvas);
         this.onPlay();
     }
 

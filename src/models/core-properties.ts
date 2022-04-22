@@ -1,5 +1,5 @@
 export interface CoreProperties {
-    /** Canvas DIV container */
+    /** Canvas HTML parent element */
     canvasParentHTMLElement?: HTMLElement;
     /** FPS container HTML element */
     fpsContainer?: string;

@@ -45,7 +45,7 @@ export class Core {
         // Avoid babylonJs canvas scale error
         WorkerTimer.setTimeout(
             () => {
-                Core.engine = new Engine(CoreGlobals.canvas, { fpsContainer: Core.properties.fpsContainer });
+                Core.engine = new Engine({ fpsContainer: Core.properties.fpsContainer });
 
                 // Start loop update
                 Core.loopUpdate();
@@ -73,7 +73,7 @@ export class Core {
     }
 
     /**
-     * Load scene
+     * Load scene // 8a8f agregar onProgress
      */
     static loadScene(scene: Scene, onLoaded?: (scene: Scene) => void): Scene {
         Core.engine.addScene(scene);
