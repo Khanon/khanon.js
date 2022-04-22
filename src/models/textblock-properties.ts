@@ -5,7 +5,7 @@ export interface TextBlockProperties {
      * Array containing each text line
      */
     textBlock?: string[];
-
+    // 8a8f separar textBlock de propiedaes de fuente
     /**
      * Font name (fontface)
      */

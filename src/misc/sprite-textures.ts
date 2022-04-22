@@ -1,13 +1,13 @@
 import { Scene as BabylonJsScene } from '@babylonjs/core/scene';
 
-import { SpriteTexture } from '../modules/sprite/sprite-texture';
 import { TextBlockProperties } from '../models/textblock-properties';
-import { DynamicTextureHelper } from './dynamic-texture-helper';
+import { SpriteTexture } from '../modules/sprite/sprite-texture';
 import { Arrays } from './arrays';
+import { DynamicTextures } from './dynamic-textures';
 
-export class SpriteTextureHelper {
+export class SpriteTextures {
     static createFromTextBlock(id: string, babylonJsScene: BabylonJsScene, textBlock: string[], textBlockProperties: TextBlockProperties): SpriteTexture {
-        const dynamicTexture = DynamicTextureHelper.createFromTextBlock(babylonJsScene, Object.assign(textBlockProperties, { textBlock }));
+        const dynamicTexture = DynamicTextures.createFromTextBlock(babylonJsScene, Object.assign(textBlockProperties, { textBlock }));
         const spriteTexture = new SpriteTexture(id, babylonJsScene);
         spriteTexture.setFromDynamicTexture(dynamicTexture);
         return spriteTexture;
@@ -21,7 +21,7 @@ export class SpriteTextureHelper {
     ): SpriteTexture[] {
         const arr: SpriteTexture[] = [];
         textBlocks.forEach((textBlock) => {
-            arr.push(SpriteTextureHelper.createFromTextBlock(id, babylonJsScene, textBlock, textBlockProperties));
+            arr.push(SpriteTextures.createFromTextBlock(id, babylonJsScene, textBlock, textBlockProperties));
         });
         return arr;
     }

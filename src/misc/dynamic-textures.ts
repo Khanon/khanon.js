@@ -3,7 +3,7 @@ import { Scene as BabylonJsScene } from '@babylonjs/core/scene';
 
 import { TextBlockProperties } from '../models/textblock-properties';
 
-export class DynamicTextureHelper {
+export class DynamicTextures {
     /**
      * Creates a Dynamic Texture containing a multi-line text block.
      *

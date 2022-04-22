@@ -27,7 +27,7 @@ export class Core {
     // Scene
     private static loadSceneQueue: Misc.KeyValue<Scene, (scene: Scene) => void> = new Misc.KeyValue<Scene, SceneFunctionArg>();
 
-    static initialize(properties: CoreProperties) {
+    static start(properties: CoreProperties, onReady: () => void) {
         Core.properties = properties;
         Core.loopUpdateDelay = Core.properties.delayUpdate ?? 0;
         Core.loopUpdateFPS = 1000 / Core.properties.fps;
@@ -36,12 +36,7 @@ export class Core {
             CoreGlobals.onError$.subscribe({ next: (errorMsg: string) => Core.properties.onAppError(errorMsg) });
         }
         this.createCanvasOnDivElement(Core.properties.canvasParentHTMLElement);
-    }
 
-    /**
-     * Starts BabylonJs
-     */
-    static run(onReady: () => void): void {
         // Avoid babylonJs canvas scale error
         WorkerTimer.setTimeout(
             () => {
@@ -66,9 +61,7 @@ export class Core {
                 });
 
                 onReady();
-            },
-            1,
-            this
+            }, 1, this
         );
     }
 
