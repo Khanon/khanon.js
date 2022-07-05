@@ -16,7 +16,7 @@ export class Engine {
         this.renderLoop();
     }
 
-    addScene(scene: Scene): void {
+    registerScene(scene: Scene): void {
         scene.setEngineParams(
             this.babylonjs,
             (id: string) => this.startRenderScene(id),

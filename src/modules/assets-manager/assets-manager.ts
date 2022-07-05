@@ -116,8 +116,7 @@ export class AssetsManager {
     /**
      * Returns existing instance of SpriteManager or create a new one.
      *
-     * @param url
-     * @param properties
+     * @param textureProperties
      * @returns
      */
     getSpriteTexture(textureProperties: TextureProperties): SpriteTexture {

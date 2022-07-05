@@ -69,7 +69,7 @@ export class Core {
      * Load scene // 8a8f agregar onProgress
      */
     static loadScene(scene: Scene, onLoaded?: (scene: Scene) => void): Scene {
-        Core.engine.addScene(scene);
+        Core.engine.registerScene(scene);
         Core.loadSceneQueue.add(scene, onLoaded);
         if (Core.loadSceneQueue.getKeys().length === 1) {
             WorkerTimer.setTimeout(

@@ -35,7 +35,9 @@ export class SpriteTexture {
     }
 
     release(): void {
-        this.babylonjs.dispose();
-        this.babylonjs = null;
+        if (this.babylonjs) {
+            this.babylonjs.dispose();
+            this.babylonjs = null;
+        }
     }
 }
